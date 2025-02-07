@@ -18,7 +18,7 @@ const convertCSVtoJSON = () => {
 	const currencyHeaders = lines[0].split(";").slice(1);
 
 	// Création du dossier de sortie pour les fichiers JSON
-	const outputDir = path.resolve("public/data/daily");
+	const outputDir = path.resolve("./data/daily");
 	if (!fs.existsSync(outputDir)) {
 		fs.mkdirSync(outputDir, { recursive: true });
 	}
