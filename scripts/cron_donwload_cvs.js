@@ -1,14 +1,39 @@
 import fs from "fs";
 import https from "https";
-import cron from "node-cron";
 import { convertCSVtoJSON } from "./convertCSVtoJson.js";
 
 const URL =
 	"https://webstat.banque-france.fr/export/csv-columns/fr/selection/5385698";
 const FILE_PATH = "./data/Webstat_Export_fr_5385698.csv";
 
+// Fonction pour vérifier si le fichier existe et sa date de dernière modification
+const isFileUpToDate = () => {
+	if (!fs.existsSync(FILE_PATH)) {
+		return false;
+	}
+	const stats = fs.statSync(FILE_PATH);
+	const fileDate = new Date(stats.mtime);
+	const today = new Date();
+
+	// Vérifie si le fichier a été modifié aujourd'hui
+	return fileDate.toDateString() === today.toDateString();
+};
+
 // Fonction principale pour télécharger le fichier CSV
 const downloadCSV = () => {
+	// Vérifie si on est un jour ouvré (pas weekend)
+	const today = new Date();
+	if (today.getDay() === 0 || today.getDay() === 6) {
+		console.log("Weekend : pas de mise à jour nécessaire");
+		return;
+	}
+
+	// Vérifie si le fichier a déjà été mis à jour aujourd'hui
+	if (isFileUpToDate()) {
+		console.log("Le fichier a déjà été mis à jour aujourd'hui");
+		return;
+	}
+
 	if (!fs.existsSync("./data")) {
 		fs.mkdirSync("./data", { recursive: true });
 	}
@@ -35,16 +60,8 @@ const downloadCSV = () => {
 		});
 };
 
-// Configuration de la tâche cron
-// "0 0 * * *" signifie : exécution tous les jours à minuit (00:00)
-cron.schedule("0 0 * * *", () => {
-	downloadCSV();
-});
-
-// Message de confirmation du démarrage de la tâche
-console.log(
-	"Tâche cron initialisée : mise à jour quotidienne du taux de change."
-);
-
-// Exécution immédiate du téléchargement au démarrage du script
+// Exécution directe de la fonction
 downloadCSV();
+
+// Message de confirmation
+console.log("Démarrage de la mise à jour du taux de change.");
