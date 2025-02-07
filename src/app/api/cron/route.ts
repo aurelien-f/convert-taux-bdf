@@ -1,27 +1,46 @@
 import { exec } from "child_process";
-import { NextRequest, NextResponse } from "next/server";
-import { promisify } from "util";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import util from "util";
 
-const execAsync = promisify(exec);
+const execAsync = util.promisify(exec);
 
-export async function GET(request: NextRequest) {
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+export default async function handler(request: NextRequest) {
+	console.log("🚀 Démarrage du cron job:", new Date().toISOString());
+
 	const authHeader = request.headers.get("Authorization");
+	console.log("📝 Auth Header:", authHeader ? "Présent" : "Absent");
 
-	// Vérification du secret CRON
 	if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-		return new NextResponse("Non autorisé", { status: 401 });
+		console.log("❌ Erreur d'authentification");
+		return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
 	}
 
 	try {
-		await execAsync("node scripts/cron_donwload_cvs.js");
-		console.log("Cron job exécuté avec succès le : " + new Date());
+		console.log("📥 Tentative d'exécution du script...");
+		const { stdout, stderr } = await execAsync(
+			"node scripts/cron_donwload_cvs.js"
+		);
+		console.log("📤 Sortie standard:", stdout);
+		if (stderr) console.error("🚨 Erreur standard:", stderr);
+
 		return NextResponse.json({
-			message: "Cron job exécuté avec succès le : " + new Date(),
+			success: true,
+			message: "Cron exécuté avec succès",
+			timestamp: new Date().toISOString(),
+			stdout,
+			stderr,
 		});
 	} catch (error) {
-		console.error("Erreur lors de l'exécution du cron job:", error);
+		console.error("💥 Erreur lors de l'exécution du cron job:", error);
 		return NextResponse.json(
-			{ error: "Erreur lors de l'exécution du cron job" },
+			{
+				error: "Erreur lors de l'exécution du cron job",
+				details: error instanceof Error ? error.message : String(error),
+			},
 			{ status: 500 }
 		);
 	}
