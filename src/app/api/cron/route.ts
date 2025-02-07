@@ -5,6 +5,8 @@ import { promisify } from "util";
 
 const execAsync = promisify(exec);
 
+export const runtime = "edge";
+
 export async function GET() {
 	const headersList = await headers();
 	const authHeader = headersList.get("Authorization");
