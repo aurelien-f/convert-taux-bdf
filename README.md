@@ -27,19 +27,19 @@ Cette application web permet de convertir des devises en utilisant les taux de c
 
 ## 🚀 Installation
 
-1. Clonez le dépôt :
+### 1. Clonez le dépôt : (dev)
 
 ```bash
 git clone https://github.com/aurelien-f/convert-taux-bdf
 ```
 
-2. Installez les dépendances :
+### 2. Installez les dépendances : (dev)
 
 ```bash
 npm install
 ```
 
-3. Démarrez le serveur :
+### 3. Démarrez le serveur : (dev)
 
 ```bash
 npm run dev
@@ -61,11 +61,14 @@ npm run dev
 
 ## 🔄 Mise à Jour des Données
 
-Les taux de change sont automatiquement mis à jour chaque jour à minuit via une tâche cron. Le processus comprend :
+Les taux de change sont automatiquement mis à jour chaque jour à minuit via une Github Action. Le processus comprend :
 
 1. Téléchargement du fichier CSV depuis la Banque de France
 2. Conversion des données en format JSON
 3. Stockage des données par date
+4. Mise à jour du fichier JSON dans le dépôt GitHub
+5. Commit et push des données mises à jour
+6. Déploiement des modifications sur Vercel
 
 ## 🌐 Structure des Données
 
@@ -76,7 +79,6 @@ Les taux de change sont stockés au format JSON avec la structure suivante :
   "Date": "2024-05-23",
   "AUD": 1.6333,
   "USD": 1.0854,
-  "// ... autres devises": null
 }
 ```
 
