@@ -7,17 +7,17 @@ const URL =
 const FILE_PATH = "./data/Webstat_Export_fr_5385698.csv";
 
 // Fonction pour vérifier si le fichier existe et sa date de dernière modification
-const isFileUpToDate = () => {
-	if (!fs.existsSync(FILE_PATH)) {
-		return false;
-	}
-	const stats = fs.statSync(FILE_PATH);
-	const fileDate = new Date(stats.mtime);
-	const today = new Date();
+// const isFileUpToDate = () => {
+// 	if (!fs.existsSync(FILE_PATH)) {
+// 		return false;
+// 	}
+// 	const stats = fs.statSync(FILE_PATH);
+// 	const fileDate = new Date(stats.mtime);
+// 	const today = new Date();
 
-	// Vérifie si le fichier a été modifié aujourd'hui
-	return fileDate.toDateString() === today.toDateString();
-};
+// 	// Vérifie si le fichier a été modifié aujourd'hui
+// 	return fileDate.toDateString() === today.toDateString();
+// };
 
 // Fonction principale pour télécharger le fichier CSV
 const downloadCSV = () => {
