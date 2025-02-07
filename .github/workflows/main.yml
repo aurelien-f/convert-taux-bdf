@@ -5,8 +5,13 @@ on:
     - cron: '0 23 * * 1-5'  # À 23H00 du lundi au vendredi
   workflow_dispatch:        # Permet aussi de lancer manuellement
 
+permissions:
+  contents: write
+  deployments: write
+
 jobs:
   update:
+    if: github.repository_owner == 'aurelien-f'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
