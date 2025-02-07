@@ -8,7 +8,7 @@ const execAsync = util.promisify(exec);
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export default async function handler(request: NextRequest) {
+export async function GET(request: NextRequest) {
 	console.log("🚀 Démarrage du cron job:", new Date().toISOString());
 
 	const authHeader = request.headers.get("Authorization");
@@ -35,7 +35,7 @@ export default async function handler(request: NextRequest) {
 			stderr,
 		});
 	} catch (error) {
-		console.error("💥 Erreur lors de l'exécution du cron job:", error);
+		console.error("�� Erreur lors de l'exécution du cron job:", error);
 		return NextResponse.json(
 			{
 				error: "Erreur lors de l'exécution du cron job",
