@@ -1,6 +1,7 @@
 import { exec } from "child_process";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import path from "path";
 import util from "util";
 
 const execAsync = util.promisify(exec);
@@ -20,10 +21,15 @@ export async function GET(request: NextRequest) {
 	}
 
 	try {
-		console.log("📥 Tentative d'exécution du script...");
-		const { stdout, stderr } = await execAsync(
-			"node scripts/cron_donwload_cvs.js"
+		const scriptPath = path.join(
+			process.cwd(),
+			"scripts",
+			"cron_donwload_cvs.js"
 		);
+		console.log("📂 Chemin du script:", scriptPath);
+
+		console.log("📥 Tentative d'exécution du script...");
+		const { stdout, stderr } = await execAsync(`node ${scriptPath}`);
 		console.log("📤 Sortie standard:", stdout);
 		if (stderr) console.error("🚨 Erreur standard:", stderr);
 
@@ -35,7 +41,7 @@ export async function GET(request: NextRequest) {
 			stderr,
 		});
 	} catch (error) {
-		console.error("�� Erreur lors de l'exécution du cron job:", error);
+		console.error("💥 Erreur lors de l'exécution du cron job:", error);
 		return NextResponse.json(
 			{
 				error: "Erreur lors de l'exécution du cron job",
