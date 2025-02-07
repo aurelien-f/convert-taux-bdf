@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Convertisseur de Taux de Change - Banque de France
 
-## Getting Started
+## 📊 Description
 
-First, run the development server:
+Cette application web permet de convertir des devises en utilisant les taux de change officiels de la Banque de France. Les données sont mises à jour quotidiennement et couvrent plus de 30 devises internationales.
+
+## ✨ Fonctionnalités
+
+- 💱 Conversion en temps réel des devises
+- 📅 Sélection de dates (à partir du 1er janvier 2024)
+- 🔄 Mise à jour quotidienne automatique des taux
+- 📱 Interface responsive et intuitive
+- 📋 Copie rapide des résultats dans le presse-papiers
+
+## 🛠️ Technologies Utilisées
+
+- **Frontend:**
+  - Next.js 15
+  - React 19
+  - TypeScript
+  - Tailwind CSS
+  - Shadcn/ui
+
+- **Backend:**
+  - Node.js
+  - Node-cron (pour les mises à jour automatiques)
+
+## 🚀 Installation
+
+1. Clonez le dépôt :
+
+```bash
+git clone https://github.com/aurelien-f/convert-taux-bdf
+```
+
+2. Installez les dépendances :
+
+```bash
+npm install
+```
+
+3. Démarrez le serveur :
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📦 Scripts Disponibles
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```json
+{
+  "dev": "next dev --turbopack",
+  "build": "next build",
+  "start": "next start",
+  "lint": "next lint",
+  "cron": "node scripts/cron_donwload_cvs.js",
+  "convert": "node scripts/convertCSVtoJson.js",
+  "extractTitles": "node scripts/extractTitlesCSVtoJson.js"
+}
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔄 Mise à Jour des Données
 
-## Learn More
+Les taux de change sont automatiquement mis à jour chaque jour à minuit via une tâche cron. Le processus comprend :
 
-To learn more about Next.js, take a look at the following resources:
+1. Téléchargement du fichier CSV depuis la Banque de France
+2. Conversion des données en format JSON
+3. Stockage des données par date
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🌐 Structure des Données
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Les taux de change sont stockés au format JSON avec la structure suivante :
 
-## Deploy on Vercel
+```json
+{
+  "Date": "2024-05-23",
+  "AUD": 1.6333,
+  "USD": 1.0854,
+  "// ... autres devises": null
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📝 Licence
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© 2025 - Tous droits réservés - [Aurélien Feuillard](https://www.aurelien-feuillard.fr)
+
+## 🔗 Sources des Données
+
+Les données utilisées proviennent du site officiel de la [Banque de France](https://www.banque-france.fr/fr/publications-et-statistiques/statistiques?theme%5B7194%5D=7194&sub_theme%5B7205%5D=7205).
+
+---
+
+Pour plus d'informations ou pour signaler un problème, n'hésitez pas à ouvrir une issue sur le dépôt GitHub.
