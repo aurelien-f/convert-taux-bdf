@@ -1,12 +1,14 @@
 import { exec } from "child_process";
-import { NextRequest, NextResponse } from "next/server";
-import { promisify } from "util";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import util from "util";
 
-const execAsync = promisify(exec);
+const execAsync = util.promisify(exec);
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-export async function GET(request: NextRequest) {
+export default async function handler(request: NextRequest) {
 	const authHeader = request.headers.get("Authorization");
 
 	// Vérification du secret CRON
