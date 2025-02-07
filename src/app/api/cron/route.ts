@@ -7,6 +7,11 @@ import path from "path";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+interface FormattedData {
+	Date: string;
+	[key: string]: string | number;
+}
+
 const URL =
 	"https://webstat.banque-france.fr/export/csv-columns/fr/selection/5385698";
 const FILE_PATH = path.join(
@@ -14,11 +19,6 @@ const FILE_PATH = path.join(
 	"data",
 	"Webstat_Export_fr_5385698.csv"
 );
-
-interface FormattedData {
-	Date: string;
-	[key: string]: string | number;
-}
 
 const downloadFile = async () => {
 	return new Promise((resolve, reject) => {
