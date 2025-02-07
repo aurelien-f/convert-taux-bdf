@@ -14,11 +14,7 @@ interface FormattedData {
 
 const URL =
 	"https://webstat.banque-france.fr/export/csv-columns/fr/selection/5385698";
-const FILE_PATH = path.join(
-	process.cwd(),
-	"data",
-	"Webstat_Export_fr_5385698.csv"
-);
+const FILE_PATH = path.join("/tmp", "Webstat_Export_fr_5385698.csv");
 
 const downloadFile = async () => {
 	return new Promise((resolve, reject) => {
@@ -50,7 +46,7 @@ const convertCSVtoJSON = () => {
 	const lines = fs.readFileSync(FILE_PATH, "utf-8").split("\n");
 	const currencyHeaders = lines[0].split(";").slice(1);
 
-	const outputDir = path.join(process.cwd(), "public/data/daily");
+	const outputDir = path.join("/tmp", "data/daily");
 	if (!fs.existsSync(outputDir)) {
 		fs.mkdirSync(outputDir, { recursive: true });
 	}
