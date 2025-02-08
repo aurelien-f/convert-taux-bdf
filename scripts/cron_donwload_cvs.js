@@ -29,10 +29,10 @@ const downloadCSV = () => {
 	}
 
 	// Vérifie si le fichier a déjà été mis à jour aujourd'hui
-	// if (isFileUpToDate()) {
-	// 	console.log("Le fichier a déjà été mis à jour aujourd'hui");
-	// 	return;
-	// }
+	if (isFileUpToDate()) {
+		console.log("Le fichier a déjà été mis à jour aujourd'hui");
+		return;
+	}
 
 	if (!fs.existsSync("./data")) {
 		fs.mkdirSync("./data", { recursive: true });
