@@ -30,7 +30,7 @@ export default function RootLayout({
       >
         <main className="min-h-screen relative pt-12 md:pt-0 flex flex-col justify-between md:block">
           {children}
-          <footer className="mt-4 md:mt-0 py-5 px-4 md:px-16 flex flex-col gap-2 md:flex-row md:justify-between ">
+          <footer className="py-5 px-4 md:px-16 flex flex-col items-center gap-2 md:flex-row md:justify-between h-auto md:h-20">
             <p className="text-center text-sm text-gray-500">Les données utilisées proviennent du site de la <a target="_blank" href="https://www.banque-france.fr/fr/publications-et-statistiques/statistiques?theme%5B7194%5D=7194&sub_theme%5B7205%5D=7205" className="text-blue-500 hover:underline">Banque de France</a>.</p>
             <p className="text-center text-sm text-gray-500">© 2025 - Tous droits réservés - <a target="_blank" href="https://www.aurelien-feuillard.fr" className="text-blue-500 hover:underline">Aurélien Feuillard</a>.</p>
           </footer>

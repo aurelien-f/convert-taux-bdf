@@ -11,7 +11,7 @@ export default async function Home() {
   const titles = await getTitles();
 
   return (
-    <section className="md:min-h-screen flex items-center flex-col gap-12 justify-center px-4 md:px-0">
+    <section className="md:min-h-[calc(100vh-5rem)] pt-0 md:pt-12 flex items-center flex-col gap-12 justify-center px-4 md:px-0">
       <div>
         <h1 className="text-4xl font-bold text-center mb-4">Convertisseur de taux de change</h1>
         <div className="flex flex-col gap-2 md:max-w-xl md:mx-auto">
