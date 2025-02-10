@@ -1,3 +1,4 @@
+import { CardWhite } from "@/app/CardWhite";
 import { getMultipleDataDevise } from "@/utils/GetMultipleDataDevise";
 import { format } from "date-fns";
 import { DateRangePickerClient } from "./DateRangePickerClient";
@@ -40,12 +41,13 @@ export default async function EvolutionGraphiqueWrapper({
       <h1 className="text-4xl font-bold text-center mb-12 md:mb-16">
         Graphique de l&apos;évolution du change.
       </h1>
-      <div className="mb-8 flex justify-center">
-        <DateRangePickerClient initialFrom={initialFrom} initialTo={initialTo} />
-      </div>
-      <div className="mx-auto max-w-4xl">
+      <CardWhite className="max-w-4xl">
+        <div className="flex flex-col justify-center mb-8">
+          <p>Sélectionner une plage de date : </p>
+          <DateRangePickerClient initialFrom={initialFrom} initialTo={initialTo} />
+        </div>
         <EvolutionGraphique data={data} />
-      </div>
+      </CardWhite>
     </section>
   );
 } 

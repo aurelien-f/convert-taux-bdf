@@ -22,7 +22,7 @@ interface EvolutionGraphiqueProps {
 export default function EvolutionGraphique({ data }: EvolutionGraphiqueProps) {
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <AreaChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+      <AreaChart data={data} margin={{ top: 0, left: 0, bottom: 0, right: 50 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#06b6d4" />
         <XAxis dataKey="date" fontSize={12} stroke="#000000" tickLine={false} axisLine={false} tickFormatter={(value) => {
           const [year, month, day] = value.split("-");
