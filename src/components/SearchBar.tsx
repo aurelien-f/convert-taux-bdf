@@ -106,6 +106,7 @@ export default function SearchBar({ initialRate, updateRates, titles }: SearchBa
           <PopoverContent className="w-auto p-0" align="start">
             <Calendar
               mode="single"
+              locale={fr}
               selected={date}
               onSelect={handleDateChange}
               disabled={(date) =>

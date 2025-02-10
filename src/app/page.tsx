@@ -1,4 +1,4 @@
-import { mondayMessage } from "@/components/MondayMessage";
+import { CardWhite } from "@/app/CardWhite";
 import SearchBar from "@/components/SearchBar";
 import { dayBefore } from "@/utils/DayBefore";
 import { getDataDevise } from "@/utils/getDataDevise";
@@ -19,12 +19,14 @@ export default async function Home() {
         </div>
       </div>
       <section>
-        {new Date().getDay() === 1 && mondayMessage}
-        <article className="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
+        <CardWhite>
           <SearchBar initialRate={initialRate} updateRates={updateRates} titles={titles} />
-        </article>
+        </CardWhite>
       </section>
-      <p className="text-black italic text-sm underline text-center"><Link href="/taux-de-change-parites-quotidiennes">Consulter les taux de change parités quotidiens</Link></p>
+      <div className="flex justify-center items-center gap-2">
+        <p className="text-black italic text-sm underline text-center"><Link href="/taux-de-change-parites-quotidiennes">Les taux de change parités quotidiens</Link></p>
+        <p className="text-black italic text-sm underline text-center"><Link href="/evolution-change-euro-devise">L&apos;évolution du change</Link></p>
+      </div>
     </section >
   );
 }
