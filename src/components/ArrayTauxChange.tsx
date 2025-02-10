@@ -28,10 +28,11 @@ interface ArrayTauxChangeProps {
   };
   titles: Record<string, string>;
   updateRates: (date: string) => Promise<{ [key: string]: string }>;
+  dayBefore: string;
 }
 
-export default function ArrayTauxChange({ initialRate, titles, updateRates }: ArrayTauxChangeProps) {
-  const [date, setDate] = useState<Date>(new Date());
+export default function ArrayTauxChange({ initialRate, titles, updateRates, dayBefore }: ArrayTauxChangeProps) {
+  const [date, setDate] = useState<Date>(new Date(dayBefore));
   const [currentRates, setCurrentRates] = useState(initialRate);
   const [searchQuery, setSearchQuery] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -82,7 +83,9 @@ export default function ArrayTauxChange({ initialRate, titles, updateRates }: Ar
                 onSelect={handleDateChange}
                 disabled={(date) =>
                   date < new Date('2024-01-01') ||
-                  date > new Date(Date.now() - 86400000)
+                  date > new Date(Date.now() - 86400000) ||
+                  date.getDay() === 0 || // Dimanche
+                  date.getDay() === 6    // Samedi
                 }
                 initialFocus
               />

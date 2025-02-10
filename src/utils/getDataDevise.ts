@@ -14,10 +14,18 @@ export async function getDataDevise(date?: string) {
 			"daily",
 			`${formattedDate}.json`
 		);
+
+		try {
+			await fs.access(filePath);
+		} catch {
+			return { error: `Pas de données pour le ${formattedDate}` };
+		}
+
 		const fileContents = await fs.readFile(filePath, "utf8");
+
 		return JSON.parse(fileContents);
 	} catch (error) {
 		console.error("Erreur lors de la récupération des données :", error);
-		return { error: `Pas de données pour le ${formattedDate}` };
+		return { error: "Erreur lors de la récupération des données" };
 	}
 }

@@ -32,9 +32,12 @@ interface SearchBarProps {
 }
 
 export default function SearchBar({ initialRate, updateRates, titles }: SearchBarProps) {
+
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  const initialDate = dateRegex.test(initialRate.Date) ? new Date(initialRate.Date) : new Date();
   const initialNumberRate = (isNaN(Number(initialRate.USD))) ? 0 : Number(initialRate.USD);
   const [amount, setAmount] = useState<string>('1');
-  const [date, setDate] = useState<Date>(new Date(initialRate.Date));
+  const [date, setDate] = useState<Date>(initialDate);
   const [selectedCurrency, setSelectedCurrency] = useState<string>('USD');
   const [currentRate, setCurrentRate] = useState(initialRate);
   const [toCurrency, setToCurrency] = useState<number>(initialNumberRate);
@@ -78,10 +81,12 @@ export default function SearchBar({ initialRate, updateRates, titles }: SearchBa
     }
   };
 
-  const errorRateMessage = <p className="text-red-500 font-bold text-center col-span-2 mb-6">Aucune données pour cette devise à cette date</p>
+  const errorRateMessage = <p className="text-red-500 font-bold text-center ">Aucune données encore pour cette date.</p>;
 
   return <>
-    {errorRate && errorRateMessage}
+    {errorRate && <div className="flex flex-col gap-0 mb-6">
+      {errorRate && errorRateMessage}
+    </div>}
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="flex flex-col gap-2">
         <label className="text-black font-bold">Date de conversion</label>
@@ -105,7 +110,9 @@ export default function SearchBar({ initialRate, updateRates, titles }: SearchBa
               onSelect={handleDateChange}
               disabled={(date) =>
                 date < new Date('2024-01-01') ||
-                date > new Date(Date.now() - 86400000)
+                date > new Date(Date.now() - 86400000) ||
+                date.getDay() === 0 || // Dimanche
+                date.getDay() === 6    // Samedi
               }
               initialFocus
             />
