@@ -6,19 +6,6 @@ const URL =
 	"https://webstat.banque-france.fr/export/csv-columns/fr/selection/5385698";
 const FILE_PATH = "./data/Webstat_Export_fr_5385698.csv";
 
-// Fonction pour vérifier si le fichier existe et sa date de dernière modification
-const isFileUpToDate = () => {
-	if (!fs.existsSync(FILE_PATH)) {
-		return false;
-	}
-	const stats = fs.statSync(FILE_PATH);
-	const fileDate = new Date(stats.mtime);
-	const today = new Date();
-
-	// Vérifie si le fichier a été modifié aujourd'hui
-	return fileDate.toDateString() === today.toDateString();
-};
-
 // Fonction principale pour télécharger le fichier CSV
 const downloadCSV = () => {
 	// Vérifie si on est un jour ouvré (pas weekend)
@@ -29,10 +16,6 @@ const downloadCSV = () => {
 	}
 
 	// Vérifie si le fichier a déjà été mis à jour aujourd'hui
-	if (isFileUpToDate()) {
-		console.log("Le fichier a déjà été mis à jour aujourd'hui");
-		return;
-	}
 
 	if (!fs.existsSync("./data")) {
 		fs.mkdirSync("./data", { recursive: true });
@@ -51,6 +34,10 @@ const downloadCSV = () => {
 			file.on("finish", () => {
 				file.close(); // Fermeture du flux de fichier
 				console.log("CSV mis à jour avec succès !"); // Message de succès
+
+				// Message de confirmation
+				console.log("Démarrage de la mise à jour du taux de change.");
+
 				const result = convertCSVtoJSON(); // Conversion du CSV en JSON
 				console.log(result); // Affichage du résultat
 			});
@@ -62,6 +49,3 @@ const downloadCSV = () => {
 
 // Exécution directe de la fonction
 downloadCSV();
-
-// Message de confirmation
-console.log("Démarrage de la mise à jour du taux de change.");

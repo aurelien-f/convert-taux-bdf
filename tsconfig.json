@@ -23,7 +23,7 @@
       "@components/*": ["./src/components/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "scripts/cron_donwload_cvs.js",
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "scripts/cron_download_cvs.js",
   "components.json"],
   "exclude": ["node_modules"]
 }
