@@ -89,7 +89,7 @@ export default function SearchBar({ initialRate, updateRates, titles }: SearchBa
     </div>}
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="flex flex-col gap-2">
-        <label className="text-black font-bold">Date de conversion</label>
+        <label className="font-bold">Date de conversion</label>
         <Popover>
           <PopoverTrigger asChild>
             <Button
@@ -121,7 +121,7 @@ export default function SearchBar({ initialRate, updateRates, titles }: SearchBa
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="text-black font-bold">Conversion en</p>
+        <p className="font-bold">Conversion en</p>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button
@@ -169,7 +169,7 @@ export default function SearchBar({ initialRate, updateRates, titles }: SearchBa
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="amount" className="text-black font-bold">Montant en {selectedCurrency}</label>
+        <label htmlFor="amount" className="font-bold">Montant en {selectedCurrency}</label>
         <Input
           type="number"
           step="0.01"
@@ -183,7 +183,7 @@ export default function SearchBar({ initialRate, updateRates, titles }: SearchBa
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="text-black font-bold">Résultat en Euros</p>
+        <p className="font-bold">Résultat en Euros</p>
         <div className="w-full p-3 h-12 flex items-center justify-between text-xl border rounded-lg bg-gray-50 text-black cursor-pointer" onClick={copyToClipboard}>
           <span>{result} €</span>
           <button
