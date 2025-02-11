@@ -34,6 +34,10 @@ const downloadCSV = () => {
 			file.on("finish", () => {
 				file.close(); // Fermeture du flux de fichier
 				console.log("CSV mis à jour avec succès !"); // Message de succès
+
+				// Message de confirmation
+				console.log("Démarrage de la mise à jour du taux de change.");
+
 				const result = convertCSVtoJSON(); // Conversion du CSV en JSON
 				console.log(result); // Affichage du résultat
 			});
@@ -45,6 +49,3 @@ const downloadCSV = () => {
 
 // Exécution directe de la fonction
 downloadCSV();
-
-// Message de confirmation
-console.log("Démarrage de la mise à jour du taux de change.");
