@@ -7,7 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"cron": "node scripts/cron_donwload_cvs.js",
+		"cron": "node scripts/cron_download_cvs.js",
 		"convert": "node scripts/convertCSVtoJson.js",
 		"extractTitles": "node scripts/extractTitlesCSVtoJson.js",
 		"init": "nvmrc && next dev"
@@ -28,9 +28,9 @@
 		"react": "^19.0.0",
 		"react-day-picker": "^8.10.1",
 		"react-dom": "^19.0.0",
-		"react-hot-toast": "^2.5.1",
 		"react-is": "^19.0.0",
 		"recharts": "^2.15.1",
+		"sonner": "^1.7.4",
 		"tailwind-merge": "^3.0.1",
 		"tailwindcss-animate": "^1.0.7"
 	},

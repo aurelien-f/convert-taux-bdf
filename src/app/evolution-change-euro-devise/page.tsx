@@ -1,4 +1,10 @@
 import EvolutionGraphiqueWrapper from "@/components/EvolutionGraphiqueWrapper";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Évolution du taux de change | Suivi des devises Banque de France",
+  description: "Obtenez l’historique d’un taux de change avec notre outil de suivi | Sources fiables de la Banque de France.",
+};
 
 export default async function TauxDeChangeParitesQuotidiennes({
   searchParams,

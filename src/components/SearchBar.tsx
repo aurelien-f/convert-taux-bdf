@@ -20,7 +20,7 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { CalendarIcon, Check, ChevronsUpDown, Copy } from "lucide-react";
 import { useEffect, useState } from 'react';
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 import { Input } from "./ui/input";
 
 interface SearchBarProps {

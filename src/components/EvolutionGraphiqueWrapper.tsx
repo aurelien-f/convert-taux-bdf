@@ -3,7 +3,8 @@ import { getMultipleDataDevise } from "@/utils/GetMultipleDataDevise";
 import { format } from "date-fns";
 import { DateRangePickerClient } from "./DateRangePickerClient";
 import EvolutionGraphique from "./EvolutionGraphique";
-
+import { H1 } from "./core/H1";
+import { WrapperPage } from "./core/WrapperPage";
 // Définition d'un type pour les points de données
 interface DataPoint {
   date: string;
@@ -37,17 +38,22 @@ export default async function EvolutionGraphiqueWrapper({
   const data: DataPoint[] = await getMultipleDataDevise(dates, "USD");
 
   return (
-    <section className="pt-8 md:pt-16 pb-12 min-h-screen px-4 md:px-0">
-      <h1 className="text-4xl font-bold text-center mb-12 md:mb-16">
-        Graphique de l&apos;évolution du change.
-      </h1>
+    <WrapperPage>
+      <div className="mb-12 md:mb-16">
+        <H1>
+          Graphique de l&apos;évolution du change.
+        </H1>
+        <p className="text-center text-sm text-gray-500">
+          Découvrez l&apos;évolution du taux de change entre deux dates.
+        </p>
+      </div>
       <CardWhite className="max-w-4xl">
         <div className="flex flex-col justify-center mb-8">
-          <p>Sélectionner une plage de date : </p>
+          <p className="text-sm font-bold mb-2">Sélectionner une plage de date : </p>
           <DateRangePickerClient initialFrom={initialFrom} initialTo={initialTo} />
         </div>
         <EvolutionGraphique data={data} />
       </CardWhite>
-    </section>
+    </WrapperPage>
   );
 } 
