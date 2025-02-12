@@ -7,7 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"cron": "node scripts/cron_donwload_cvs.js",
+		"cron": "node scripts/cron_download_cvs.js",
 		"convert": "node scripts/convertCSVtoJson.js",
 		"extractTitles": "node scripts/extractTitlesCSVtoJson.js",
 		"init": "nvmrc && next dev"

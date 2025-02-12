@@ -1,61 +1,62 @@
 name: Update Currency Rates
 
 on:
-  schedule:
-    - cron: '0 4,20 * * *'  # À 04h00 et 20h00 UTC tous les jours
-  workflow_dispatch:        # Permet aussi de lancer manuellement
+    schedule:
+        - cron: "0 4,20 * * *" # À 04h00 et 20h00 UTC tous les jours
+    workflow_dispatch: # Permet aussi de lancer manuellement
 
 permissions:
-  contents: write
-  deployments: write
+    contents: write
+    deployments: write
 
 jobs:
-  update:
-    if: github.repository_owner == 'aurelien-f'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+    update:
+        if: github.repository_owner == 'aurelien-f'
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22.13.1'
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "22.13.1"
 
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
+            - name: Install dependencies
+              run: npm install --legacy-peer-deps
 
-      - name: Run update script
-        run: node scripts/cron_download_cvs.js
+            - name: Run update script
+              run: node scripts/cron_download_cvs.js
 
-      - name: Commit changes
-        id: commit
-        run: |
-          git config --global user.name 'GitHub Action Bot'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add data/
-          if git commit -m "🤖 MAJ automatique des taux de change à ${{ env.GITHUB_RUN_STARTED_AT }}"; then
-            echo "COMMITTED=true" >> $GITHUB_ENV
-          else
-            echo "COMMITTED=false" >> $GITHUB_ENV
-          fi
+            - name: Commit changes
+              id: commit
+              run: |
+                  git config --global user.name 'GitHub Action Bot'
+                  git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+                  git add data/
+                  if git commit -m "🤖 MAJ automatique des taux de change à $(date '+%Y-%m-%d %H:%M:%S')"; then
+                    git push
+                    echo "COMMITTED=true" >> $GITHUB_ENV
+                  else
+                    echo "COMMITTED=false" >> $GITHUB_ENV
+                  fi
 
-      - name: Install Vercel CLI
-        if: env.COMMITTED == 'true'
-        run: npm install --global vercel@latest
+            - name: Install Vercel CLI
+              if: env.COMMITTED == 'true'
+              run: npm install --global vercel@latest
 
-      - name: Deploy to Vercel
-        if: env.COMMITTED == 'true'
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: |
-          vercel pull --yes --environment=production --token=$VERCEL_TOKEN
-          vercel build --prod --token=$VERCEL_TOKEN
-          vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+            - name: Deploy to Vercel
+              if: env.COMMITTED == 'true'
+              env:
+                  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+              run: |
+                  vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+                  vercel build --prod --token=$VERCEL_TOKEN
+                  vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
 
-      - name: Notify on failure
-        if: failure()
-        run: echo "Le workflow a échoué après un lancement à ${{ env.GITHUB_RUN_STARTED_AT }}"
+            - name: Notify on failure
+              if: failure()
+              run: echo "Le workflow a échoué après un lancement à $(date '+%Y-%m-%d %H:%M:%S')"
 
-      - name: Notify on success
-        if: success()
-        run: echo "Le workflow a réussi après un lancement à ${{ env.GITHUB_RUN_STARTED_AT }}"
+            - name: Notify on success
+              if: success()
+              run: echo "Le workflow a réussi après un lancement à $(date '+%Y-%m-%d %H:%M:%S')"
