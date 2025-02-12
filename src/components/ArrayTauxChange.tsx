@@ -78,6 +78,7 @@ export default function ArrayTauxChange({ initialRate, titles, updateRates, dayB
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
               <Calendar
+                locale={fr}
                 mode="single"
                 selected={date}
                 onSelect={handleDateChange}
@@ -144,7 +145,7 @@ export default function ArrayTauxChange({ initialRate, titles, updateRates, dayB
           {filteredRates.map(([currency, rate]) => (
             <TableRow key={currency}>
               <TableCell className="font-medium">{titles[currency]}</TableCell>
-              <TableCell>{rate}</TableCell>
+              <TableCell>{rate ? rate : "-"}</TableCell>
             </TableRow>
           ))}
         </TableBody>

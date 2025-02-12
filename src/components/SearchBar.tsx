@@ -20,7 +20,7 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { CalendarIcon, Check, ChevronsUpDown, Copy } from "lucide-react";
 import { useEffect, useState } from 'react';
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 import { Input } from "./ui/input";
 
 interface SearchBarProps {
@@ -106,6 +106,7 @@ export default function SearchBar({ initialRate, updateRates, titles }: SearchBa
           <PopoverContent className="w-auto p-0" align="start">
             <Calendar
               mode="single"
+              locale={fr}
               selected={date}
               onSelect={handleDateChange}
               disabled={(date) =>

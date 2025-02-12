@@ -36,7 +36,7 @@ git clone https://github.com/aurelien-f/convert-taux-bdf
 ### 2. Installez les dépendances : (dev)
 
 ```bash
-npm install
+npm install --legacy-peer-deps
 ```
 
 ### 3. Démarrez le serveur : (dev)
