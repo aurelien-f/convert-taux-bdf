@@ -1,4 +1,5 @@
 import { NavBar } from "@/components/NavBar";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Toaster } from "sonner";
@@ -34,6 +35,7 @@ export default function RootLayout({
           </footer>
         </main>
         <Toaster position="top-center" richColors />
+        <Analytics />
       </body>
     </html>
   );
